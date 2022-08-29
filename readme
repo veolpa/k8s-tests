@@ -1,0 +1,12 @@
+   
+   installing kvm as prequisite to installing minikube (small k8s)
+   30  sudo apt update
+   32  sudo apt -y install qemu-kvm libvirt-dev bridge-utils libvirt-daemon-system libvirt-daemon virtinst bridge-utils libosinfo-bin libguestfs-tools virt-top
+   33  sudo modprobe vhost_net
+   34  sudo lsmod | grep vhost
+   35  echo "vhost_net" | sudo tee -a /etc/modules
+   39  sudo apt update
+   40  sudo apt remove docker docker-engine docker.io 2>/dev/null
+   41  sudo apt update
+   42  sudo apt -y install lsb-release gnupg apt-transport-https ca-certificates curl software-properties-common
+   
