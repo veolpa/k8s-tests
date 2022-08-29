@@ -1,9 +1,70 @@
+# Docker 
+docker pull alpine:3.10
+docker pull ubuntu    # etc
+
+docker image ls
+
+# one way to create a docker image: (u might wanna create a seperate directory)
+# get an image from a provider like:  wget https://dl-cdn.alpinelinux.org/alpine/v3.10/releases/x86_64/alpine-minirootfs-3.10.9-x86_64.tar.gz
+# with this approach you're able to check the contents of the image before using it - potentially finding security-threats
+# create a ./Dockerfile with following content: 
+   FROM scratch
+   ADD alpine-minirootfs-3.10.9-x86_64.tar.gz /
+   COPY os-release /etc    
+   CMD ["/bin/sh"]
+# and create the aforementioned ./os-release file and following contents
+   NAME="Pascal's Alpine Linux Docker-Image"
+   ID=alpine
+   VERSION_ID=3.10.0-SL
+   PRETTY_NAME="https://alpinelinux.org"
+   BUG_REPORT_URL="https://bugs.alpine.org"
+# create a custom docker image from 3 files above:
+   docker build -t pascal/image1:0.1 .
+   docker image ls
+   
+# another way would be:
+# Dockerfile:
+   FROM alpine:3.10
+   COPY os-release /etc
+   CMD ["/bin/sh"]
+# os-release file same content as above ^^
+   docker build -t pascal/image3:0.1 .
+   docker image ls
+   docker run --rm -it pascal/image3:0.1
+   
+   
+   
+
+   
+   
+   
    #Installing microk8s
 snap install microk8s --channel=latest/edge/strict
    #expected output:
    # microk8s (edge/strict) v1.22.3 from Canonical✓ installed
 snap info microk8s   
 
+microk8s status --wait-ready
+microk8s enable --help
+microk8s enable dashboard dns registry istio
+
+# creating an alias for microk8s kubectsl:
+alias mkctl="microk8s kubectl"
+
+# using k8s:
+microk8s kubectl get all --all-namespaces
+
+microk8s dashboard-proxy
+
+microk8s start 
+microk8s stop  # to save power
+
+   
+   
+   
+   
+   
+   
    
    
    # all those following steps did'nt produce a working minikube installation on a 1blu vserver
